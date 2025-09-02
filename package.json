@@ -1,0 +1,19 @@
+{
+  "name": "school-management-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "formidable": "^3.5.4",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.14.4",
+    "next": "^14.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-hook-form": "^7.62.0"
+  }
+}
