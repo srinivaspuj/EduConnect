@@ -115,7 +115,7 @@ export default function AddSchool() {
 
       {/* Main Content */}
       <main style={{
-        maxWidth: '800px',
+        maxWidth: '600px',
         margin: '0 auto',
         padding: 'clamp(20px, 5vw, 40px)',
         background: 'rgba(255, 255, 255, 0.95)',
@@ -123,8 +123,8 @@ export default function AddSchool() {
         borderRadius: '20px',
         marginTop: 'clamp(10px, 3vw, 20px)',
         marginBottom: 'clamp(10px, 3vw, 20px)',
-        marginLeft: 'clamp(10px, 3vw, 0px)',
-        marginRight: 'clamp(10px, 3vw, 0px)',
+        marginLeft: 'clamp(10px, 3vw, auto)',
+        marginRight: 'clamp(10px, 3vw, auto)',
         boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
       }}>
         {/* Page header with title and description */}
@@ -157,7 +157,7 @@ export default function AddSchool() {
           display: 'flex',
           flexDirection: 'column',
           gap: '20px',
-          maxWidth: '500px',
+          width: '100%',
           margin: '0 auto'
         }}>
           {/* School name field */}
