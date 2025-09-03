@@ -71,7 +71,8 @@ EduConnect/
 
 ### Prerequisites
 - **Node.js** (v16 or higher)
-- **MySQL** (v8.0 or higher)
+- **TiDB Cloud Account** (for production)
+- **Vercel Account** (for deployment)
 - **npm** or **yarn**
 
 ### 1. Clone Repository

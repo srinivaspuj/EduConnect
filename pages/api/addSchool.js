@@ -34,15 +34,26 @@ export default async function handler(req, res) {
       const file = Array.isArray(files.image) ? files.image[0] : files.image;
       const fileName = `${Date.now()}-${file.originalFilename}`;
       
-      // Read file buffer from temporary path
-      const fileBuffer = fs.readFileSync(file.filepath);
-      
-      // Upload to Vercel Blob
-      const blob = await put(fileName, fileBuffer, {
-        access: 'public',
-      });
-      
-      imagePath = blob.url;
+      if (process.env.NODE_ENV === 'production') {
+        // Production: Use Vercel Blob
+        const fileBuffer = fs.readFileSync(file.filepath);
+        const blob = await put(fileName, fileBuffer, {
+          access: 'public',
+        });
+        imagePath = blob.url;
+      } else {
+        // Development: Use local storage
+        const path = require('path');
+        const uploadDir = path.join(process.cwd(), 'public', 'schoolImages');
+        
+        if (!fs.existsSync(uploadDir)) {
+          fs.mkdirSync(uploadDir, { recursive: true });
+        }
+        
+        const newPath = path.join(uploadDir, fileName);
+        fs.copyFileSync(file.filepath, newPath);
+        imagePath = fileName;
+      }
     }
 
     const [result] = await db.execute(
