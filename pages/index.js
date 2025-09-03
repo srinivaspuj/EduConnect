@@ -13,16 +13,16 @@ export default function Home() {
         background: 'rgba(95, 66, 160, 0.95)',
         backdropFilter: 'blur(10px)',
         color: '#fff',
-        padding: '15px 30px',
+        padding: '15px 20px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
       }}>
         <div style={{ 
-          fontSize: '28px', 
+          fontSize: 'clamp(20px, 5vw, 28px)', 
           fontWeight: '700', 
-          letterSpacing: '3px',
+          letterSpacing: 'clamp(1px, 0.5vw, 3px)',
           background: 'linear-gradient(45deg, #fff, #e0e7ff)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent'

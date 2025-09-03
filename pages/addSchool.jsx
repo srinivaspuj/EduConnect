@@ -65,22 +65,25 @@ export default function AddSchool() {
         background: 'rgba(95, 66, 160, 0.95)',
         backdropFilter: 'blur(10px)',
         color: '#fff',
-        padding: '15px 30px',
+        padding: '15px 20px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
         position: 'sticky',
         top: 0,
-        zIndex: 100
+        zIndex: 100,
+        flexWrap: 'wrap',
+        gap: '15px'
       }}>
         <div style={{ 
-          fontSize: '28px', 
+          fontSize: 'clamp(20px, 5vw, 28px)', 
           fontWeight: '700', 
-          letterSpacing: '3px',
+          letterSpacing: 'clamp(1px, 0.5vw, 3px)',
           background: 'linear-gradient(45deg, #fff, #e0e7ff)',
           WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent'
+          WebkitTextFillColor: 'transparent',
+          minWidth: 'fit-content'
         }}>
           EDUCONNECT
         </div>
@@ -88,12 +91,14 @@ export default function AddSchool() {
           <a href="/showSchools" style={{
             background: 'linear-gradient(45deg, #5ca223, #6dd230)',
             color: '#fff',
-            padding: '12px 24px',
+            padding: 'clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px)',
             borderRadius: '25px',
             textDecoration: 'none',
             fontWeight: '600',
+            fontSize: 'clamp(12px, 3vw, 16px)',
             transition: 'all 0.3s ease',
-            boxShadow: '0 4px 15px rgba(92, 162, 35, 0.3)'
+            boxShadow: '0 4px 15px rgba(92, 162, 35, 0.3)',
+            whiteSpace: 'nowrap'
           }}
           onMouseEnter={(e) => {
             e.target.style.transform = 'translateY(-2px)';
