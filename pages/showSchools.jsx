@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import SchoolImage from '../components/SchoolImage';
 
 export default function ShowSchools() {
   // Main data states
@@ -511,30 +512,23 @@ export default function ShowSchools() {
                 e.target.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
               }}
             >
-              {school.image && (
-                <div style={{ position: 'relative', overflow: 'hidden', height: '200px' }}>
-                  <img
-                    src={`/schoolImages/${school.image}`}
-                    alt={school.name}
-                    style={{ 
-                      width: '100%', 
-                      height: '100%', 
-                      objectFit: 'cover',
-                      transition: 'transform 0.3s ease'
-                    }}
-                    onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
-                    onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
-                  />
-                  <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 100%)'
-                  }} />
-                </div>
-              )}
+              <div style={{ position: 'relative', overflow: 'hidden', height: '200px' }}>
+                <SchoolImage 
+                  src={school.image} 
+                  alt={school.name}
+                  style={{
+                    transition: 'transform 0.3s ease'
+                  }}
+                />
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 100%)'
+                }} />
+              </div>
               
               <div style={{ padding: '25px' }}>
                 {editingSchool === school.id ? (
