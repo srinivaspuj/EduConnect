@@ -152,84 +152,85 @@ export default function AddSchool() {
           </p>
         </div>
         
-        {/* Main form - using grid layout for better organization */}
+        {/* Main form - single column layout */}
         <form onSubmit={handleSubmit(onSubmit)} style={{
-          display: 'grid',
-          gap: '25px',
-          maxWidth: '600px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '20px',
+          maxWidth: '500px',
           margin: '0 auto'
         }}>
-          {/* First row - School name and city side by side */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
-            {/* School name field */}
-            <div>
-              <label style={{ 
-                display: 'block', 
-                marginBottom: '8px', 
-                fontWeight: '600', 
-                color: '#333',
-                fontSize: '14px'
-              }}>School Name *</label>
-              <input
-                {...register('name', { required: 'School name is required' })}
-                placeholder="Enter school name"
-                style={{
-                  width: '100%',
-                  padding: '16px 20px',
-                  border: errors.name ? '2px solid #dc3545' : '2px solid #e9ecef', // red border on error
-                  borderRadius: '12px',
-                  fontSize: '16px',
-                  outline: 'none',
-                  transition: 'all 0.3s ease',
-                  background: '#fff'
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = '#5f42a0'; // purple focus color
-                  e.target.style.boxShadow = '0 0 0 3px rgba(95, 66, 160, 0.1)';
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = errors.name ? '#dc3545' : '#e9ecef';
-                  e.target.style.boxShadow = 'none';
-                }}
-              />
-              {errors.name && <span style={{ color: '#dc3545', fontSize: '12px', marginTop: '5px', display: 'block' }}>{errors.name.message}</span>}
-            </div>
-
-            <div>
-              <label style={{ 
-                display: 'block', 
-                marginBottom: '8px', 
-                fontWeight: '600', 
-                color: '#333',
-                fontSize: '14px'
-              }}>City *</label>
-              <input
-                {...register('city', { required: 'City is required' })}
-                placeholder="Enter city"
-                style={{
-                  width: '100%',
-                  padding: '16px 20px',
-                  border: errors.city ? '2px solid #dc3545' : '2px solid #e9ecef',
-                  borderRadius: '12px',
-                  fontSize: '16px',
-                  outline: 'none',
-                  transition: 'all 0.3s ease',
-                  background: '#fff'
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = '#5f42a0';
-                  e.target.style.boxShadow = '0 0 0 3px rgba(95, 66, 160, 0.1)';
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = errors.city ? '#dc3545' : '#e9ecef';
-                  e.target.style.boxShadow = 'none';
-                }}
-              />
-              {errors.city && <span style={{ color: '#dc3545', fontSize: '12px', marginTop: '5px', display: 'block' }}>{errors.city.message}</span>}
-            </div>
+          {/* School name field */}
+          <div>
+            <label style={{ 
+              display: 'block', 
+              marginBottom: '8px', 
+              fontWeight: '600', 
+              color: '#333',
+              fontSize: '14px'
+            }}>School Name *</label>
+            <input
+              {...register('name', { required: 'School name is required' })}
+              placeholder="Enter school name"
+              style={{
+                width: '100%',
+                padding: '16px 20px',
+                border: errors.name ? '2px solid #dc3545' : '2px solid #e9ecef',
+                borderRadius: '12px',
+                fontSize: '16px',
+                outline: 'none',
+                transition: 'all 0.3s ease',
+                background: '#fff',
+                boxSizing: 'border-box'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = '#5f42a0';
+                e.target.style.boxShadow = '0 0 0 3px rgba(95, 66, 160, 0.1)';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = errors.name ? '#dc3545' : '#e9ecef';
+                e.target.style.boxShadow = 'none';
+              }}
+            />
+            {errors.name && <span style={{ color: '#dc3545', fontSize: '12px', marginTop: '5px', display: 'block' }}>{errors.name.message}</span>}
           </div>
 
-          {/* Address field - full width textarea */}
+          {/* City field */}
+          <div>
+            <label style={{ 
+              display: 'block', 
+              marginBottom: '8px', 
+              fontWeight: '600', 
+              color: '#333',
+              fontSize: '14px'
+            }}>City *</label>
+            <input
+              {...register('city', { required: 'City is required' })}
+              placeholder="Enter city"
+              style={{
+                width: '100%',
+                padding: '16px 20px',
+                border: errors.city ? '2px solid #dc3545' : '2px solid #e9ecef',
+                borderRadius: '12px',
+                fontSize: '16px',
+                outline: 'none',
+                transition: 'all 0.3s ease',
+                background: '#fff',
+                boxSizing: 'border-box'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = '#5f42a0';
+                e.target.style.boxShadow = '0 0 0 3px rgba(95, 66, 160, 0.1)';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = errors.city ? '#dc3545' : '#e9ecef';
+                e.target.style.boxShadow = 'none';
+              }}
+            />
+            {errors.city && <span style={{ color: '#dc3545', fontSize: '12px', marginTop: '5px', display: 'block' }}>{errors.city.message}</span>}
+          </div>
+
+          {/* Address field */}
           <div>
             <label style={{ 
               display: 'block', 
@@ -251,8 +252,9 @@ export default function AddSchool() {
                 outline: 'none',
                 transition: 'all 0.3s ease',
                 background: '#fff',
-                resize: 'vertical', // allow vertical resize only
-                minHeight: '120px'
+                resize: 'vertical',
+                minHeight: '120px',
+                boxSizing: 'border-box'
               }}
               onFocus={(e) => {
                 e.target.style.borderColor = '#5f42a0';
@@ -266,76 +268,77 @@ export default function AddSchool() {
             {errors.address && <span style={{ color: '#dc3545', fontSize: '12px', marginTop: '5px', display: 'block' }}>{errors.address.message}</span>}
           </div>
 
-          {/* Second row - State and contact number */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
-            <div>
-              <label style={{ 
-                display: 'block', 
-                marginBottom: '8px', 
-                fontWeight: '600', 
-                color: '#333',
-                fontSize: '14px'
-              }}>State *</label>
-              <input
-                {...register('state', { required: 'State is required' })}
-                placeholder="Enter state"
-                style={{
-                  width: '100%',
-                  padding: '16px 20px',
-                  border: errors.state ? '2px solid #dc3545' : '2px solid #e9ecef',
-                  borderRadius: '12px',
-                  fontSize: '16px',
-                  outline: 'none',
-                  transition: 'all 0.3s ease',
-                  background: '#fff'
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = '#5f42a0';
-                  e.target.style.boxShadow = '0 0 0 3px rgba(95, 66, 160, 0.1)';
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = errors.state ? '#dc3545' : '#e9ecef';
-                  e.target.style.boxShadow = 'none';
-                }}
-              />
-              {errors.state && <span style={{ color: '#dc3545', fontSize: '12px', marginTop: '5px', display: 'block' }}>{errors.state.message}</span>}
-            </div>
+          {/* State field */}
+          <div>
+            <label style={{ 
+              display: 'block', 
+              marginBottom: '8px', 
+              fontWeight: '600', 
+              color: '#333',
+              fontSize: '14px'
+            }}>State *</label>
+            <input
+              {...register('state', { required: 'State is required' })}
+              placeholder="Enter state"
+              style={{
+                width: '100%',
+                padding: '16px 20px',
+                border: errors.state ? '2px solid #dc3545' : '2px solid #e9ecef',
+                borderRadius: '12px',
+                fontSize: '16px',
+                outline: 'none',
+                transition: 'all 0.3s ease',
+                background: '#fff',
+                boxSizing: 'border-box'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = '#5f42a0';
+                e.target.style.boxShadow = '0 0 0 3px rgba(95, 66, 160, 0.1)';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = errors.state ? '#dc3545' : '#e9ecef';
+                e.target.style.boxShadow = 'none';
+              }}
+            />
+            {errors.state && <span style={{ color: '#dc3545', fontSize: '12px', marginTop: '5px', display: 'block' }}>{errors.state.message}</span>}
+          </div>
 
-            <div>
-              <label style={{ 
-                display: 'block', 
-                marginBottom: '8px', 
-                fontWeight: '600', 
-                color: '#333',
-                fontSize: '14px'
-              }}>Contact Number *</label>
-              <input
-                {...register('contact', { 
-                  required: 'Contact number is required'
-                })}
-                placeholder="Enter contact number"
-                type="tel"
-                style={{
-                  width: '100%',
-                  padding: '16px 20px',
-                  border: errors.contact ? '2px solid #dc3545' : '2px solid #e9ecef',
-                  borderRadius: '12px',
-                  fontSize: '16px',
-                  outline: 'none',
-                  transition: 'all 0.3s ease',
-                  background: '#fff'
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = '#5f42a0';
-                  e.target.style.boxShadow = '0 0 0 3px rgba(95, 66, 160, 0.1)';
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = errors.contact ? '#dc3545' : '#e9ecef';
-                  e.target.style.boxShadow = 'none';
-                }}
-              />
-              {errors.contact && <span style={{ color: '#dc3545', fontSize: '12px', marginTop: '5px', display: 'block' }}>{errors.contact.message}</span>}
-            </div>
+          {/* Contact field */}
+          <div>
+            <label style={{ 
+              display: 'block', 
+              marginBottom: '8px', 
+              fontWeight: '600', 
+              color: '#333',
+              fontSize: '14px'
+            }}>Contact Number *</label>
+            <input
+              {...register('contact', { 
+                required: 'Contact number is required'
+              })}
+              placeholder="Enter contact number"
+              type="tel"
+              style={{
+                width: '100%',
+                padding: '16px 20px',
+                border: errors.contact ? '2px solid #dc3545' : '2px solid #e9ecef',
+                borderRadius: '12px',
+                fontSize: '16px',
+                outline: 'none',
+                transition: 'all 0.3s ease',
+                background: '#fff',
+                boxSizing: 'border-box'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = '#5f42a0';
+                e.target.style.boxShadow = '0 0 0 3px rgba(95, 66, 160, 0.1)';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = errors.contact ? '#dc3545' : '#e9ecef';
+                e.target.style.boxShadow = 'none';
+              }}
+            />
+            {errors.contact && <span style={{ color: '#dc3545', fontSize: '12px', marginTop: '5px', display: 'block' }}>{errors.contact.message}</span>}
           </div>
 
           {/* Email field with validation */}
@@ -362,7 +365,8 @@ export default function AddSchool() {
                 fontSize: '16px',
                 outline: 'none',
                 transition: 'all 0.3s ease',
-                background: '#fff'
+                background: '#fff',
+                boxSizing: 'border-box'
               }}
               onFocus={(e) => {
                 e.target.style.borderColor = '#5f42a0';
