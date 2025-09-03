@@ -1,6 +1,7 @@
 import db from '../../lib/db';
 import formidable from 'formidable';
 import { put } from '@vercel/blob';
+import fs from 'fs';
 
 export const config = {
   api: {
@@ -33,8 +34,8 @@ export default async function handler(req, res) {
       const file = Array.isArray(files.image) ? files.image[0] : files.image;
       const fileName = `${Date.now()}-${file.originalFilename}`;
       
-      // Read file buffer
-      const fileBuffer = require('fs').readFileSync(file.filepath);
+      // Read file buffer from temporary path
+      const fileBuffer = fs.readFileSync(file.filepath);
       
       // Upload to Vercel Blob
       const blob = await put(fileName, fileBuffer, {
