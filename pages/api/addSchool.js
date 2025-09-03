@@ -1,7 +1,6 @@
 import db from '../../lib/db';
 import formidable from 'formidable';
-import fs from 'fs';
-import path from 'path';
+import { put } from '@vercel/blob';
 
 export const config = {
   api: {
@@ -33,15 +32,16 @@ export default async function handler(req, res) {
     if (files.image) {
       const file = Array.isArray(files.image) ? files.image[0] : files.image;
       const fileName = `${Date.now()}-${file.originalFilename}`;
-      const uploadDir = path.join(process.cwd(), 'public', 'schoolImages');
       
-      if (!fs.existsSync(uploadDir)) {
-        fs.mkdirSync(uploadDir, { recursive: true });
-      }
+      // Read file buffer
+      const fileBuffer = require('fs').readFileSync(file.filepath);
       
-      const newPath = path.join(uploadDir, fileName);
-      fs.renameSync(file.filepath, newPath);
-      imagePath = fileName;
+      // Upload to Vercel Blob
+      const blob = await put(fileName, fileBuffer, {
+        access: 'public',
+      });
+      
+      imagePath = blob.url;
     }
 
     const [result] = await db.execute(
