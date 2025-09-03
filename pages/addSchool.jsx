@@ -117,32 +117,36 @@ export default function AddSchool() {
       <main style={{
         maxWidth: '800px',
         margin: '0 auto',
-        padding: '40px 20px',
+        padding: 'clamp(20px, 5vw, 40px)',
         background: 'rgba(255, 255, 255, 0.95)',
         backdropFilter: 'blur(10px)',
         borderRadius: '20px',
-        marginTop: '20px',
-        marginBottom: '20px',
+        marginTop: 'clamp(10px, 3vw, 20px)',
+        marginBottom: 'clamp(10px, 3vw, 20px)',
+        marginLeft: 'clamp(10px, 3vw, 0px)',
+        marginRight: 'clamp(10px, 3vw, 0px)',
         boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
       }}>
         {/* Page header with title and description */}
         <div style={{ textAlign: 'center', marginBottom: '50px' }}>
           <h1 style={{ 
-            fontSize: '42px',
+            fontSize: 'clamp(28px, 6vw, 42px)',
             fontWeight: '800',
-            background: 'linear-gradient(45deg, #5f42a0, #764ba2)', // gradient text effect
+            background: 'linear-gradient(45deg, #5f42a0, #764ba2)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
-            marginBottom: '15px'
+            marginBottom: '15px',
+            lineHeight: '1.2'
           }}>
             Add New School
           </h1>
           <p style={{ 
-            fontSize: '18px',
+            fontSize: 'clamp(14px, 4vw, 18px)',
             color: '#666',
             maxWidth: '600px',
             margin: '0 auto',
-            lineHeight: '1.6'
+            lineHeight: '1.6',
+            padding: '0 10px'
           }}>
             Join our network of educational institutions and help students find their perfect learning environment
           </p>
@@ -156,7 +160,7 @@ export default function AddSchool() {
           margin: '0 auto'
         }}>
           {/* First row - School name and city side by side */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
             {/* School name field */}
             <div>
               <label style={{ 
@@ -263,7 +267,7 @@ export default function AddSchool() {
           </div>
 
           {/* Second row - State and contact number */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
             <div>
               <label style={{ 
                 display: 'block', 
@@ -490,15 +494,8 @@ export default function AddSchool() {
         }
         
         @media (max-width: 768px) {
-          main {
-            margin: 10px !important;
-            padding: 20px !important;
-          }
-          
-          form > div:first-child,
-          form > div:nth-child(4) {
-            grid-template-columns: 1fr !important;
-            gap: 20px !important;
+          .form-container {
+            padding: 15px !important;
           }
         }
       `}</style>
