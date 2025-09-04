@@ -213,6 +213,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - 📧 Email: srinivas.pujala1121@gmail.com
 - 💼 LinkedIn: https://www.linkedin.com/in/pujala-srinivas
 - 🐱 GitHub: https://github.com/srinivaspuj
+- Demo : https://edu-connect-taupe.vercel.app/
 
 ---
 
