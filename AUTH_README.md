@@ -1,4 +1,4 @@
-# EduConnect - School Management Platform with OTP Authentication
+# EduConnect 
 
 ## 🔐 New Authentication Features
 
