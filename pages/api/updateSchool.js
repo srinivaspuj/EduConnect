@@ -8,9 +8,9 @@ export default async function handler(req, res) {
   try {
     const { id, name, address, city, state, contact, email_id } = req.body;
     
-    // Validate required fields
-    if (!id || !name || !address || !city || !state || !contact || !email_id) {
-      return res.status(400).json({ message: 'All fields are required' });
+    // Only validate that ID exists
+    if (!id) {
+      return res.status(400).json({ message: 'School ID is required' });
     }
     
     const [result] = await db.execute(

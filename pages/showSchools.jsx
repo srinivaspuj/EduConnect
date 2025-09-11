@@ -259,20 +259,37 @@ export default function ShowSchools() {
           EDUCONNECT
         </div>
         <nav style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-          <a href="/login" style={{
-            background: 'linear-gradient(45deg, #dc3545, #e74c3c)',
-            color: '#fff',
-            padding: 'clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px)',
-            borderRadius: '25px',
-            textDecoration: 'none',
-            fontWeight: '600',
-            fontSize: 'clamp(12px, 3vw, 16px)',
-            transition: 'all 0.3s ease',
-            boxShadow: '0 4px 15px rgba(220, 53, 69, 0.3)',
-            whiteSpace: 'nowrap'
-          }}>
-            🔐 Login to Manage
-          </a>
+          {isAuthenticated ? (
+            <a href="/addSchool" style={{
+              background: 'linear-gradient(45deg, #5ca223, #6dd230)',
+              color: '#fff',
+              padding: 'clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px)',
+              borderRadius: '25px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              fontSize: 'clamp(12px, 3vw, 16px)',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 4px 15px rgba(92, 162, 35, 0.3)',
+              whiteSpace: 'nowrap'
+            }}>
+              + Add School
+            </a>
+          ) : (
+            <a href="/login" style={{
+              background: 'linear-gradient(45deg, #dc3545, #e74c3c)',
+              color: '#fff',
+              padding: 'clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px)',
+              borderRadius: '25px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              fontSize: 'clamp(12px, 3vw, 16px)',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 4px 15px rgba(220, 53, 69, 0.3)',
+              whiteSpace: 'nowrap'
+            }}>
+              🔐 Login to Manage
+            </a>
+          )}
         </nav>
       </header>
 
