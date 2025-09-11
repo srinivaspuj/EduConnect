@@ -184,23 +184,41 @@ export default function ShowSchools() {
       return;
     }
     setEditingSchool(school.id);
-    setEditForm(school); // populate form with current data
+    // Ensure all required fields are included
+    setEditForm({
+      id: school.id,
+      name: school.name,
+      address: school.address,
+      city: school.city,
+      state: school.state,
+      contact: school.contact,
+      email_id: school.email_id
+    });
   };
 
   // Save updated school data
   const handleUpdate = async () => {
     try {
+      console.log('Updating school:', editForm); // Debug log
       const response = await fetch('/api/updateSchool', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editForm),
       });
+      
+      const result = await response.json();
+      console.log('Update response:', result); // Debug log
+      
       if (response.ok) {
+        alert('School updated successfully!');
         setEditingSchool(null); // exit edit mode
         fetchSchools(currentPage, search); // refresh data
+      } else {
+        alert('Error: ' + result.message);
       }
     } catch (error) {
       console.error('Error updating school:', error);
+      alert('Failed to update school');
     }
   };
 
