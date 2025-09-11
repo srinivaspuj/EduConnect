@@ -1,7 +1,12 @@
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 export default function AddSchool() {
+  const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
+  
   // Form handling with react-hook-form
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   
@@ -9,6 +14,32 @@ export default function AddSchool() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    const email = localStorage.getItem('userEmail');
+    
+    if (!token || !email) {
+      router.push('/login');
+    } else {
+      setIsAuthenticated(true);
+      setUserEmail(email);
+    }
+  }, [router]);
+
+  const logout = () => {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userEmail');
+    router.push('/login');
+  };
+
+  if (!isAuthenticated) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontSize: '18px' }}>
+        Checking authentication...
+      </div>
+    );
+  }
 
   // Handle file selection
   const handleFileChange = (e) => {
@@ -87,7 +118,8 @@ export default function AddSchool() {
         }}>
           EDUCONNECT
         </div>
-        <nav>
+        <nav style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+          <span style={{ fontSize: '14px', marginRight: '10px' }}>👤 {userEmail}</span>
           <a href="/showSchools" style={{
             background: 'linear-gradient(45deg, #5ca223, #6dd230)',
             color: '#fff',
@@ -110,6 +142,21 @@ export default function AddSchool() {
           }}>
             📚 View Schools
           </a>
+          <button onClick={logout} style={{
+            background: 'linear-gradient(45deg, #dc3545, #e74c3c)',
+            color: '#fff',
+            padding: 'clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px)',
+            borderRadius: '25px',
+            border: 'none',
+            fontWeight: '600',
+            fontSize: 'clamp(12px, 3vw, 16px)',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease',
+            boxShadow: '0 4px 15px rgba(220, 53, 69, 0.3)',
+            whiteSpace: 'nowrap'
+          }}>
+            🚪 Logout
+          </button>
         </nav>
       </header>
 

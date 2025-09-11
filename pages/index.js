@@ -76,6 +76,60 @@ export default function Home() {
           maxWidth: '800px',
           width: '100%'
         }}>
+          {/* Login Card */}
+          <Link href="/login" style={{ textDecoration: 'none' }}>
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.95)',
+              backdropFilter: 'blur(10px)',
+              borderRadius: '20px',
+              padding: '40px 30px',
+              textAlign: 'center',
+              boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer',
+              border: '2px solid transparent'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.transform = 'translateY(-10px)';
+              e.target.style.boxShadow = '0 20px 40px rgba(0,0,0,0.15)';
+              e.target.style.borderColor = '#dc3545';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+              e.target.style.borderColor = 'transparent';
+            }}>
+              <div style={{
+                fontSize: '48px',
+                marginBottom: '20px'
+              }}>🔐</div>
+              <h3 style={{
+                fontSize: '24px',
+                fontWeight: '700',
+                color: '#333',
+                marginBottom: '15px'
+              }}>Admin Login</h3>
+              <p style={{
+                fontSize: '16px',
+                color: '#666',
+                lineHeight: '1.5',
+                marginBottom: '25px'
+              }}>Login with email OTP to add and manage schools in the platform.</p>
+              <div style={{
+                display: 'inline-block',
+                padding: '12px 24px',
+                background: 'linear-gradient(45deg, #dc3545, #e74c3c)',
+                color: 'white',
+                borderRadius: '25px',
+                fontWeight: '600',
+                fontSize: '14px',
+                transition: 'all 0.3s ease'
+              }}>
+                🔑 Login
+              </div>
+            </div>
+          </Link>
+
           {/* Add School Card */}
           <Link href="/addSchool" style={{ textDecoration: 'none' }}>
             <div style={{

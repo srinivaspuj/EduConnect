@@ -2,11 +2,20 @@ import { useEffect, useState } from "react";
 import SchoolImage from '../components/SchoolImage';
 
 export default function ShowSchools() {
+  // Authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  
   // Main data states
   const [schools, setSchools] = useState([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pagination, setPagination] = useState({});
+
+  // Check authentication on component mount
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    setIsAuthenticated(!!token);
+  }, []);
   
   // Edit functionality
   const [editingSchool, setEditingSchool] = useState(null);
@@ -152,8 +161,12 @@ export default function ShowSchools() {
     }
   };
 
-  // Delete school with confirmation
+  // Delete school with confirmation (only for authenticated users)
   const handleDelete = async (id) => {
+    if (!isAuthenticated) {
+      alert('Please login to delete schools');
+      return;
+    }
     if (confirm('Are you sure you want to delete this school?')) {
       try {
         const response = await fetch(`/api/deleteSchool?id=${id}`, { method: 'DELETE' });
@@ -164,8 +177,12 @@ export default function ShowSchools() {
     }
   };
 
-  // Start editing a school
+  // Start editing a school (only for authenticated users)
   const handleEdit = (school) => {
+    if (!isAuthenticated) {
+      alert('Please login to edit schools');
+      return;
+    }
     setEditingSchool(school.id);
     setEditForm(school); // populate form with current data
   };
@@ -221,29 +238,46 @@ export default function ShowSchools() {
         }}>
           EDUCONNECT
         </div>
-        <nav>
-          <a href="/addSchool" style={{
-            background: 'linear-gradient(45deg, #5ca223, #6dd230)',
-            color: '#fff',
-            padding: 'clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px)',
-            borderRadius: '25px',
-            textDecoration: 'none',
-            fontWeight: '600',
-            fontSize: 'clamp(12px, 3vw, 16px)',
-            transition: 'all 0.3s ease',
-            boxShadow: '0 4px 15px rgba(92, 162, 35, 0.3)',
-            whiteSpace: 'nowrap'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.transform = 'translateY(-2px)';
-            e.target.style.boxShadow = '0 6px 20px rgba(92, 162, 35, 0.4)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.transform = 'translateY(0)';
-            e.target.style.boxShadow = '0 4px 15px rgba(92, 162, 35, 0.3)';
-          }}>
-            + Add School
-          </a>
+        <nav style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+          {isAuthenticated ? (
+            <a href="/addSchool" style={{
+              background: 'linear-gradient(45deg, #5ca223, #6dd230)',
+              color: '#fff',
+              padding: 'clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px)',
+              borderRadius: '25px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              fontSize: 'clamp(12px, 3vw, 16px)',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 4px 15px rgba(92, 162, 35, 0.3)',
+              whiteSpace: 'nowrap'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.transform = 'translateY(-2px)';
+              e.target.style.boxShadow = '0 6px 20px rgba(92, 162, 35, 0.4)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.boxShadow = '0 4px 15px rgba(92, 162, 35, 0.3)';
+            }}>
+              + Add School
+            </a>
+          ) : (
+            <a href="/login" style={{
+              background: 'linear-gradient(45deg, #dc3545, #e74c3c)',
+              color: '#fff',
+              padding: 'clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px)',
+              borderRadius: '25px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              fontSize: 'clamp(12px, 3vw, 16px)',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 4px 15px rgba(220, 53, 69, 0.3)',
+              whiteSpace: 'nowrap'
+            }}>
+              🔐 Login
+            </a>
+          )}
         </nav>
       </header>
 
@@ -629,38 +663,42 @@ export default function ShowSchools() {
                       justifyContent: 'center',
                       flexWrap: 'wrap'
                     }}>
-                      <button
-                        onClick={() => handleEdit(school)}
-                        style={{
-                          padding: '8px 16px',
-                          background: 'linear-gradient(45deg, #007bff, #0056b3)',
-                          color: 'white',
-                          border: 'none',
-                          borderRadius: '20px',
-                          cursor: 'pointer',
-                          fontSize: '12px',
-                          fontWeight: '600',
-                          transition: 'all 0.2s ease'
-                        }}
-                      >
-                        ✏️ Edit
-                      </button>
-                      <button
-                        onClick={() => handleDelete(school.id)}
-                        style={{
-                          padding: '8px 16px',
-                          background: 'linear-gradient(45deg, #dc3545, #c82333)',
-                          color: 'white',
-                          border: 'none',
-                          borderRadius: '20px',
-                          cursor: 'pointer',
-                          fontSize: '12px',
-                          fontWeight: '600',
-                          transition: 'all 0.2s ease'
-                        }}
-                      >
-                        🗑️ Delete
-                      </button>
+                      {isAuthenticated && (
+                        <>
+                          <button
+                            onClick={() => handleEdit(school)}
+                            style={{
+                              padding: '8px 16px',
+                              background: 'linear-gradient(45deg, #007bff, #0056b3)',
+                              color: 'white',
+                              border: 'none',
+                              borderRadius: '20px',
+                              cursor: 'pointer',
+                              fontSize: '12px',
+                              fontWeight: '600',
+                              transition: 'all 0.2s ease'
+                            }}
+                          >
+                            ✏️ Edit
+                          </button>
+                          <button
+                            onClick={() => handleDelete(school.id)}
+                            style={{
+                              padding: '8px 16px',
+                              background: 'linear-gradient(45deg, #dc3545, #c82333)',
+                              color: 'white',
+                              border: 'none',
+                              borderRadius: '20px',
+                              cursor: 'pointer',
+                              fontSize: '12px',
+                              fontWeight: '600',
+                              transition: 'all 0.2s ease'
+                            }}
+                          >
+                            🗑️ Delete
+                          </button>
+                        </>
+                      )}
                       <button style={{
                         padding: '8px 16px',
                         background: 'linear-gradient(45deg, #5ca223, #6dd230)',
@@ -672,7 +710,7 @@ export default function ShowSchools() {
                         fontWeight: '600',
                         transition: 'all 0.2s ease'
                       }}>
-                        🎓 Apply Now
+                        🎓 View Details
                       </button>
                     </div>
                   </div>
