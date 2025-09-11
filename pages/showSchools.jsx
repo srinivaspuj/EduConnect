@@ -6,6 +6,12 @@ export default function ShowSchools() {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [mounted, setMounted] = useState(false);
+
+  // Ensure component is mounted before checking localStorage
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   
   // Main data states
   const [schools, setSchools] = useState([]);
@@ -13,27 +19,43 @@ export default function ShowSchools() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pagination, setPagination] = useState({});
 
-  // Check authentication on component mount
+  // Check authentication after component mounts
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    if (!token) {
-      router.push('/login');
-    } else {
-      setIsAuthenticated(true);
-    }
-    setLoading(false);
-  }, [router]);
+    if (!mounted) return;
+    
+    const checkAuth = () => {
+      try {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+          router.push('/login');
+        } else {
+          setIsAuthenticated(true);
+        }
+      } catch (error) {
+        console.error('Auth check error:', error);
+        router.push('/login');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    checkAuth();
+  }, [router, mounted]);
 
-  if (loading) {
+  if (!mounted || loading) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontSize: '18px' }}>
-        Checking authentication...
+        Loading...
       </div>
     );
   }
 
   if (!isAuthenticated) {
-    return null;
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontSize: '18px' }}>
+        Redirecting to login...
+      </div>
+    );
   }
   
   // Edit functionality
