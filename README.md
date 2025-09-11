@@ -209,10 +209,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👨‍💻 **Developer**
 
-**Srinivas**
-- 📧 Email: [your-email@example.com]
-- 💼 LinkedIn: [Your LinkedIn Profile]
-- 🐱 GitHub: [Your GitHub Profile]
+**Pujala Srinivas**
+- 📧 Email: srinivas.pujala1121@gmail.com
+- 💼 LinkedIn: https://www.linkedin.com/in/pujala-srinivas
+- 🐱 GitHub: https://github.com/srinivaspuj
+- Demo : https://edu-connect-taupe.vercel.app/
 
 ---
 
