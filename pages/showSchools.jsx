@@ -1,17 +1,9 @@
 import { useEffect, useState } from "react";
-import { useRouter } from 'next/router';
 import SchoolImage from '../components/SchoolImage';
 
 export default function ShowSchools() {
-  const router = useRouter();
+  // Authentication state
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [mounted, setMounted] = useState(false);
-
-  // Ensure component is mounted before checking localStorage
-  useEffect(() => {
-    setMounted(true);
-  }, []);
   
   // Main data states
   const [schools, setSchools] = useState([]);
@@ -19,44 +11,13 @@ export default function ShowSchools() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pagination, setPagination] = useState({});
 
-  // Check authentication after component mounts
+  // Check authentication on component mount
   useEffect(() => {
-    if (!mounted) return;
-    
-    const checkAuth = () => {
-      try {
-        const token = localStorage.getItem('authToken');
-        if (!token) {
-          router.push('/login');
-        } else {
-          setIsAuthenticated(true);
-        }
-      } catch (error) {
-        console.error('Auth check error:', error);
-        router.push('/login');
-      } finally {
-        setLoading(false);
-      }
-    };
-    
-    checkAuth();
-  }, [router, mounted]);
-
-  if (!mounted || loading) {
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontSize: '18px' }}>
-        Loading...
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontSize: '18px' }}>
-        Redirecting to login...
-      </div>
-    );
-  }
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('authToken');
+      setIsAuthenticated(!!token);
+    }
+  }, []);
   
   // Edit functionality
   const [editingSchool, setEditingSchool] = useState(null);
@@ -298,45 +259,20 @@ export default function ShowSchools() {
           EDUCONNECT
         </div>
         <nav style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-          {isAuthenticated ? (
-            <a href="/addSchool" style={{
-              background: 'linear-gradient(45deg, #5ca223, #6dd230)',
-              color: '#fff',
-              padding: 'clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px)',
-              borderRadius: '25px',
-              textDecoration: 'none',
-              fontWeight: '600',
-              fontSize: 'clamp(12px, 3vw, 16px)',
-              transition: 'all 0.3s ease',
-              boxShadow: '0 4px 15px rgba(92, 162, 35, 0.3)',
-              whiteSpace: 'nowrap'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = 'translateY(-2px)';
-              e.target.style.boxShadow = '0 6px 20px rgba(92, 162, 35, 0.4)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = 'translateY(0)';
-              e.target.style.boxShadow = '0 4px 15px rgba(92, 162, 35, 0.3)';
-            }}>
-              + Add School
-            </a>
-          ) : (
-            <a href="/login" style={{
-              background: 'linear-gradient(45deg, #dc3545, #e74c3c)',
-              color: '#fff',
-              padding: 'clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px)',
-              borderRadius: '25px',
-              textDecoration: 'none',
-              fontWeight: '600',
-              fontSize: 'clamp(12px, 3vw, 16px)',
-              transition: 'all 0.3s ease',
-              boxShadow: '0 4px 15px rgba(220, 53, 69, 0.3)',
-              whiteSpace: 'nowrap'
-            }}>
-              🔐 Login
-            </a>
-          )}
+          <a href="/login" style={{
+            background: 'linear-gradient(45deg, #dc3545, #e74c3c)',
+            color: '#fff',
+            padding: 'clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px)',
+            borderRadius: '25px',
+            textDecoration: 'none',
+            fontWeight: '600',
+            fontSize: 'clamp(12px, 3vw, 16px)',
+            transition: 'all 0.3s ease',
+            boxShadow: '0 4px 15px rgba(220, 53, 69, 0.3)',
+            whiteSpace: 'nowrap'
+          }}>
+            🔐 Login to Manage
+          </a>
         </nav>
       </header>
 
