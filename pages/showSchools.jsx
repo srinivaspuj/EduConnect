@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { useRouter } from 'next/router';
 import SchoolImage from '../components/SchoolImage';
 
 export default function ShowSchools() {
-  // Authentication state
+  const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
   
   // Main data states
   const [schools, setSchools] = useState([]);
@@ -14,8 +16,25 @@ export default function ShowSchools() {
   // Check authentication on component mount
   useEffect(() => {
     const token = localStorage.getItem('authToken');
-    setIsAuthenticated(!!token);
-  }, []);
+    if (!token) {
+      router.push('/login');
+    } else {
+      setIsAuthenticated(true);
+    }
+    setLoading(false);
+  }, [router]);
+
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontSize: '18px' }}>
+        Checking authentication...
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return null;
+  }
   
   // Edit functionality
   const [editingSchool, setEditingSchool] = useState(null);
@@ -622,11 +641,53 @@ export default function ShowSchools() {
                       style={{ 
                         width: '100%', 
                         padding: '10px', 
-                        marginBottom: '15px', 
+                        marginBottom: '10px', 
                         border: '2px solid #eee',
                         borderRadius: '8px',
                         fontSize: '16px',
                         minHeight: '80px',
+                        boxSizing: 'border-box'
+                      }}
+                    />
+                    <input
+                      placeholder="State"
+                      value={editForm.state || ''}
+                      onChange={(e) => setEditForm({...editForm, state: e.target.value})}
+                      style={{ 
+                        width: '100%', 
+                        padding: '10px', 
+                        marginBottom: '10px', 
+                        border: '2px solid #eee',
+                        borderRadius: '8px',
+                        fontSize: '16px',
+                        boxSizing: 'border-box'
+                      }}
+                    />
+                    <input
+                      placeholder="Contact"
+                      value={editForm.contact || ''}
+                      onChange={(e) => setEditForm({...editForm, contact: e.target.value})}
+                      style={{ 
+                        width: '100%', 
+                        padding: '10px', 
+                        marginBottom: '10px', 
+                        border: '2px solid #eee',
+                        borderRadius: '8px',
+                        fontSize: '16px',
+                        boxSizing: 'border-box'
+                      }}
+                    />
+                    <input
+                      placeholder="Email"
+                      value={editForm.email_id || ''}
+                      onChange={(e) => setEditForm({...editForm, email_id: e.target.value})}
+                      style={{ 
+                        width: '100%', 
+                        padding: '10px', 
+                        marginBottom: '15px', 
+                        border: '2px solid #eee',
+                        borderRadius: '8px',
+                        fontSize: '16px',
                         boxSizing: 'border-box'
                       }}
                     />

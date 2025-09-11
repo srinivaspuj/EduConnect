@@ -8,9 +8,14 @@ export default async function handler(req, res) {
   try {
     const { id, name, address, city, state, contact, email_id } = req.body;
     
+    // Validate required fields
+    if (!id || !name || !address || !city || !state || !contact || !email_id) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
+    
     const [result] = await db.execute(
       'UPDATE schools SET name = ?, address = ?, city = ?, state = ?, contact = ?, email_id = ? WHERE id = ?',
-      [name, address, city, state, String(contact), email_id, id]
+      [name || '', address || '', city || '', state || '', String(contact || ''), email_id || '', id]
     );
 
     if (result.affectedRows === 0) {
