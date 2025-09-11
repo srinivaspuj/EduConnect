@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 export default function Login() {
@@ -7,6 +7,7 @@ export default function Login() {
   const [step, setStep] = useState(1); // 1: email, 2: otp
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [timeLeft, setTimeLeft] = useState(600); // 10 minutes in seconds
   const router = useRouter();
 
   const sendOTP = async (e) => {
@@ -25,6 +26,7 @@ export default function Login() {
       
       if (res.ok) {
         setStep(2);
+        setTimeLeft(600); // Reset to 10 minutes
         setMessage('OTP sent to your email');
       } else {
         setMessage(data.message);
@@ -33,6 +35,29 @@ export default function Login() {
       setMessage('Failed to send OTP');
     }
     setLoading(false);
+  };
+
+  // Countdown timer effect
+  useEffect(() => {
+    if (step === 2 && timeLeft > 0) {
+      const timer = setInterval(() => {
+        setTimeLeft(prev => {
+          if (prev <= 1) {
+            setMessage('OTP expired. Please request a new one.');
+            setStep(1);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [step, timeLeft]);
+
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
   const verifyOTP = async (e) => {
@@ -111,6 +136,9 @@ export default function Login() {
               />
               <p style={{ fontSize: '14px', color: '#666', marginTop: '8px' }}>
                 OTP sent to: {email}
+              </p>
+              <p style={{ fontSize: '14px', color: timeLeft < 60 ? '#dc3545' : '#5f42a0', marginTop: '8px', fontWeight: '600' }}>
+                ⏰ Expires in: {formatTime(timeLeft)}
               </p>
             </div>
             <button

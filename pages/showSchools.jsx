@@ -581,7 +581,8 @@ export default function ShowSchools() {
                         marginBottom: '10px', 
                         border: '2px solid #eee',
                         borderRadius: '8px',
-                        fontSize: '16px'
+                        fontSize: '16px',
+                        boxSizing: 'border-box'
                       }}
                     />
                     <input
@@ -593,7 +594,8 @@ export default function ShowSchools() {
                         marginBottom: '10px', 
                         border: '2px solid #eee',
                         borderRadius: '8px',
-                        fontSize: '16px'
+                        fontSize: '16px',
+                        boxSizing: 'border-box'
                       }}
                     />
                     <textarea
@@ -606,7 +608,8 @@ export default function ShowSchools() {
                         border: '2px solid #eee',
                         borderRadius: '8px',
                         fontSize: '16px',
-                        minHeight: '80px'
+                        minHeight: '80px',
+                        boxSizing: 'border-box'
                       }}
                     />
                     <div style={{ display: 'flex', gap: '10px' }}>
@@ -699,7 +702,9 @@ export default function ShowSchools() {
                           </button>
                         </>
                       )}
-                      <button style={{
+                      <button 
+                        onClick={() => alert(`School: ${school.name}\nCity: ${school.city}\nAddress: ${school.address}\nContact: ${school.contact}\nEmail: ${school.email_id}`)}
+                        style={{
                         padding: '8px 16px',
                         background: 'linear-gradient(45deg, #5ca223, #6dd230)',
                         color: 'white',
