@@ -210,7 +210,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👨‍💻 **Developer**
 
 **Pujala Srinivas**
-- 📧 Email: srinivas.pujala1121@gmail.com
+- 📧 Email: 2301050199.cse@gmail.com 
 - 💼 LinkedIn: https://www.linkedin.com/in/pujala-srinivas
 - 🐱 GitHub: https://github.com/srinivaspuj
 - Demo : https://edu-connect-taupe.vercel.app/
